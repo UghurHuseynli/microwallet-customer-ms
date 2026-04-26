@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1776423095756-1
+      author: Ughur
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: payment_date
+                  type: DATETIME
+            tableName: payment_history
+  - changeSet:
+      id: 1776423095756-2
+      author: Ughur
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: payment_date
+            tableName: payment_history
+  - changeSet:
+      id: 1776423095756-3
+      author: Ughur
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: created_at
+            tableName: payment_history
+

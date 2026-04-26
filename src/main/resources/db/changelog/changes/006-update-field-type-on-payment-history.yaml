@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1776422871672-1
+      author: Ughur
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: currency
+            tableName: payment_history
+  - changeSet:
+      id: 1776422871672-2
+      author: Ughur
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    validateNullable: true
+                  name: currency
+                  type: VARCHAR(255)
+            tableName: payment_history
+

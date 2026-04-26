@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: ${PSQLDB_URL}
+
+  jpa:
+    show-sql: false
+
+  kafka:
+    bootstrap-servers: kafka-cluster-01:9092
+
+payment:
+  service:
+    url: http://payment-service-internal
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 10000

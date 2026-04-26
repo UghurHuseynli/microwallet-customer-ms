@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: ${PSQLDB_URL:jdbc:postgresql://localhost:5432/customer_db}
+    username: ${PSQLDB_NAME:postgres}
+    password: ${PSQLDB_PASSWORD:password}
+
+  jpa:
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+payment:
+  service:
+    url: http://localhost:8081
+
+feign:
+  client:
+    config:
+      payment-ms:
+        connect-timeout: 2000
+        read-timeout: 5000
