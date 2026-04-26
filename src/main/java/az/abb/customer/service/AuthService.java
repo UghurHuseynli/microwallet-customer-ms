@@ -1,12 +1,11 @@
 package az.abb.customer.service;
 
 import az.abb.customer.dto.request.AccountRequest;
-import az.abb.customer.dto.response.AccountResponse;
-import az.abb.customer.dto.response.AuthResponse;
 import az.abb.customer.dto.request.LoginRequest;
 import az.abb.customer.dto.request.RegisterRequest;
+import az.abb.customer.dto.response.AccountResponse;
+import az.abb.customer.dto.response.AuthResponse;
 import az.abb.customer.entity.User;
-import az.abb.customer.enums.Currency;
 import az.abb.customer.enums.Role;
 import az.abb.customer.exception.UserAlreadyExistsException;
 import az.abb.customer.feign.UserFeignClient;
@@ -23,8 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 @Slf4j
 @Service

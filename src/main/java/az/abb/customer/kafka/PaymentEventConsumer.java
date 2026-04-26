@@ -17,6 +17,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Component
@@ -25,6 +26,8 @@ public class PaymentEventConsumer {
 
     private final PaymentHistoryRepository paymentHistoryRepository;
     private final ObjectMapper objectMapper;
+
+    private final AtomicInteger eventCount = new AtomicInteger(0);  // ← add this
 
 
     @KafkaListener(topics = "payment-result-topic", groupId = "customer-group")
@@ -41,6 +44,8 @@ public class PaymentEventConsumer {
             paymentHistory.setPaymentStatus(event.getPaymentStatus());
             paymentHistoryRepository.save(paymentHistory);
 
+            eventCount.incrementAndGet();  // ← increment on success
+
             log.info("Payment record updated - paymentId: {}, status: {}",
                     event.getPaymentId(), event.getPaymentStatus());
 
@@ -56,5 +61,9 @@ public class PaymentEventConsumer {
             log.error("Unexpected error processing event [{}]: {}", eventId, e.getMessage(), e);
             throw e; // rethrow so Kafka retries
         }
+    }
+
+    public int getAndResetCount() {
+        return eventCount.getAndSet(0);
     }
 }
