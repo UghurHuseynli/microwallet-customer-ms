@@ -1,0 +1,22 @@
+networks:
+  ms-network:
+    external: true
+    name: ms-network
+
+services:
+
+  customer-service:
+    build: .
+    container_name: customer-service
+    restart: unless-stopped
+    networks: [ms-network]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - payment-service
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      PAYMENT_SERVICE_URL: http://payment-service:8081

@@ -13,13 +13,13 @@ public class PaymentEventScheduler {
 
     private final PaymentEventConsumer paymentEventConsumer;
 
-    @Scheduled(fixedRate = 10000)  // runs every 10 seconds
+    @Scheduled(fixedRate = 60000)
     public void logPaymentEventSummary() {
         int count = paymentEventConsumer.getAndResetCount();
         if (count > 0) {
-            log.info("Scheduler report — {} payment event(s) processed in last 10 seconds", count);
+            log.info("Scheduler report — {} payment event(s) processed in last 1 minute", count);
         } else {
-            log.info("Scheduler report — no payment events received in last 10 seconds");
+            log.info("Scheduler report — no payment events received in last 1 minute");
         }
     }
 }
